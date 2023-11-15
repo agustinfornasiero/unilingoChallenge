@@ -9,11 +9,13 @@ namespace unilingo.Services
     public class YouTubeAPIService : IYouTubeAPIService
     {
         private readonly YouTubeService _youTubeService;
-        private readonly string _apiKey = "AIzaSyBwU7iggs8HOWej0JfF-GcGthl7kiMhG5A";
+        private readonly string _apiKey;
+        //private readonly string _apiKey = configuration["YouTubeAPI:ApiKey"];
         private readonly string _applicationName = "YouTubeAPI";
-
-        public YouTubeAPIService()
+        
+        public YouTubeAPIService(IConfiguration configuration)
         {
+            _apiKey = configuration["YouTubeAPI:ApiKey"];
             _youTubeService = new YouTubeService(new BaseClientService.Initializer
             {
                 ApiKey = _apiKey,
