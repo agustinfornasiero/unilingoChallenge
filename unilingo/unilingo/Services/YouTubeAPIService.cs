@@ -1,7 +1,9 @@
 ﻿using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
 using System.Web;
+using unilingo.ContextDB;
 using unilingo.Interfaces;
+using unilingo.Model;
 using unilingo.Model.Exceptions;
 
 namespace unilingo.Services
@@ -12,8 +14,10 @@ namespace unilingo.Services
         private readonly string _apiKey;
         //private readonly string _apiKey = configuration["YouTubeAPI:ApiKey"];
         private readonly string _applicationName = "YouTubeAPI";
-        
-        public YouTubeAPIService(IConfiguration configuration)
+        private readonly ApplicationDbContext _context;
+
+        public YouTubeAPIService(IConfiguration configuration,
+                                 ApplicationDbContext context)
         {
             _apiKey = configuration["YouTubeAPI:ApiKey"];
             _youTubeService = new YouTubeService(new BaseClientService.Initializer
@@ -21,9 +25,10 @@ namespace unilingo.Services
                 ApiKey = _apiKey,
                 ApplicationName = _applicationName
             });
+            _context = context;
         }
 
-        public string GetVideoTitle(string videoURL)
+        public string GetVideoTitleByUrl(string videoURL)
         {
             try
             {
@@ -76,6 +81,60 @@ namespace unilingo.Services
             }
         }
 
+        public string GetVideoTitle(string videoId)
+        {
+            try
+            {
+                if (videoId == null)
+                {
+                    // Invalid YouTube video URL, return a default or empty string
+                    return string.Empty;
+                }
+
+                var videoInfo = _context.Videos.Where(v => v.IdVideo == videoId).FirstOrDefault();
+                // Your database operations here
+                if (videoInfo != null)
+                {
+                    return videoInfo.Title;
+                }
+
+                // Create a new YouTubeService
+                var youtubeService = _youTubeService;
+
+                // Create a videos request
+                var videosRequest = youtubeService.Videos.List("snippet,statistics");
+                videosRequest.Id = videoId;
+
+                // Execute the request and retrieve the video details
+                var videoResponse = videosRequest.Execute();
+
+                // Check if there are items in the response
+                if (videoResponse.Items == null || videoResponse.Items.Count <= 0)
+                {
+                    // No items found in the response, handle accordingly
+                    throw new VideoNotFoundException("Video not found");
+                }
+                // Extract the video title from the response
+                string videoTitle = videoResponse.Items[0].Snippet.Title;
+                // Save the video title to the database
+                videoInfo = new VideoInformation
+                {
+                    IdVideo = videoId,
+                    Title = videoTitle,
+                    CreatedAt = DateTime.Now
+                };
+
+                _context.Videos.Add(videoInfo);
+                _context.SaveChanges();
+                
+                return videoTitle;
+            }
+            catch (Exception ex)
+            {
+                // Handle other exceptions
+                throw new VideoServiceException($"Error: {ex.Message}");
+            }
+        }
         // Function to extract video ID from YouTube video URL
         //public string ExtractVideoId(string url)
         //{
@@ -196,7 +255,7 @@ namespace unilingo.Services
 
 
         public int GetVideoViewCount(string videoURL)
-        {
+        {            
             try
             {
                 //string decodedVideoURL = HttpUtility.UrlDecode(videoURL);
@@ -242,6 +301,4 @@ namespace unilingo.Services
             }
         }
     }
-
-    
 }

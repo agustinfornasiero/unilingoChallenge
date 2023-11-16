@@ -57,8 +57,6 @@ namespace unilingo.Controllers
         {
             try
             {
-                string videoTitle = _youTubeAPIService.GetVideoTitle(videoURL);
-
                 // Decode the URL parameter
                 string decodedVideoURL = HttpUtility.UrlDecode(videoURL);
 
@@ -71,17 +69,7 @@ namespace unilingo.Controllers
                     return BadRequest("Invalid or empty YouTube video ID");
                 }
 
-                // Save the video title to the database
-                var videoInfo = new VideoInformation
-                {
-                    IdVideo = videoId,
-                    Title = videoTitle,
-                    CreatedAt = DateTime.Now
-                };
-
-                // Your database operations here
-                _context.Videos.Add(videoInfo);
-                _context.SaveChanges();
+                string videoTitle = _youTubeAPIService.GetVideoTitle(videoId);
 
                 return Ok(videoTitle);
             }

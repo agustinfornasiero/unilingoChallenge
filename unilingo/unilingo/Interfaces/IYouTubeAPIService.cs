@@ -3,7 +3,8 @@
     public interface IYouTubeAPIService
     {
         //Get VideoTitle Method
-        public string GetVideoTitle(string videoURL);
+        public string GetVideoTitleByUrl(string videoURL);
+        public string GetVideoTitle(string videoId);
 
         // Extract video ID from YouTube video URL
         public string ExtractVideoId(string url);
