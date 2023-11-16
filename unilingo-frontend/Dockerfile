@@ -2,7 +2,7 @@ FROM node:16-alpine AS build
 WORKDIR /usr/local/app
 COPY . /usr/local/app/
 #Configurar e instalar pnpm
-RUN npm i
+RUN npm i --force
 #Configurar variables de entorno
 #Compilar aplicación angular
 RUN npm run build:docker
