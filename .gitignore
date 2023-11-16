@@ -1,6 +1,7 @@
 **/unilingo/unilingo/obj/**
 **/.tmp/**
 **/obj/**
+**/*.env
 **/unilingo/unilingo/unilingo.db-shm
 **/unilingo/unilingo/unilingo.db-wal
 **/**.csproj.user
