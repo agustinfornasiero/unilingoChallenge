@@ -22,3 +22,4 @@ unilingo/.vs/unilingo/v17/.suo
 .vs/slnx.sqlite
 .vs/unilingoChallenge/v17/.wsuo
 .tmp/docker-env/secret.env
+.vscode/**
