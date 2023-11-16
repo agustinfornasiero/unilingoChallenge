@@ -12,6 +12,6 @@ FROM nginx:alpine
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/conf.d
 #Copiar datos 'dist' de aplicación
-COPY --from=build /usr/local/app/dist/unilingo-ui /usr/share/nginx/html
+COPY --from=build /usr/local/app/dist/unilingo-frontend /usr/share/nginx/html
 CMD ["/bin/sh",  "-c",  "envsubst < /usr/share/nginx/html/assets/env.template.js > /usr/share/nginx/html/assets/env.js && exec nginx -g 'daemon off;'"]
 EXPOSE 80

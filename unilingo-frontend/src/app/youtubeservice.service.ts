@@ -7,22 +7,23 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class YoutubeService {
+  private readonly baseRoute = environment.settings.apiUrl + '/YouTube';
 
   constructor(private http: HttpClient) {}
 
   getChannelVideos(): Observable<any> {
-    return this.http.get(`${environment.baseUrl}`);
+    return this.http.get(`${this.baseRoute}`);
   }
 
   getVideoTitle(videoURL: string): Observable<any> {
-    return this.http.get(`${environment.baseUrl}/${encodeURIComponent(videoURL)}`);
+    return this.http.get(`${this.baseRoute}/${encodeURIComponent(videoURL)}`);
   }
 
   getMostRecentVideo(): Observable<any> {
-    return this.http.get(`${environment.baseUrl}/GetMostRecentVideo`);
+    return this.http.get(`${this.baseRoute}/GetMostRecentVideo`);
   }
 
   getVideoInformation(videoURL: string): Observable<any> {
-    return this.http.get(`${environment.baseUrl}/viewCount?videoURL=${encodeURIComponent(videoURL)}`);
+    return this.http.get(`${this.baseRoute}/viewCount?videoURL=${encodeURIComponent(videoURL)}`);
   }
 }

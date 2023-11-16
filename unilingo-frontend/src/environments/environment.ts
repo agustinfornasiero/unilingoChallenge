@@ -1,3 +1,9 @@
-export const environment = {
-    baseUrl : 'https://localhost:7207/api/YouTube'
+import { EnvironmentDef } from "./environment.interface";
+
+export const environment : EnvironmentDef = {
+  production: false,
+  settings: { 
+    apiUrl: '/api', 
+    debug: true
+  }  
 };

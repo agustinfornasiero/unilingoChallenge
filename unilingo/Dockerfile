@@ -10,10 +10,10 @@ COPY ["unilingo/unilingo.csproj", "unilingo/"]
 RUN dotnet restore "unilingo/unilingo.csproj"
 COPY . .
 WORKDIR "/src/unilingo"
-RUN dotnet build "unilingo/unilingo.csproj" -c Release -o /app/build
+RUN dotnet build "unilingo.csproj" -c Docker -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "unilingo/unilingo.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "unilingo.csproj" -c Docker -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
