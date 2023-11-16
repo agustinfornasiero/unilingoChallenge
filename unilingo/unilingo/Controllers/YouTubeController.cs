@@ -1,6 +1,7 @@
 ﻿using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
 using Google.Apis.YouTube.v3.Data;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Web;
@@ -12,18 +13,24 @@ using unilingo.Services;
 
 namespace unilingo.Controllers
 {
+    [EnableCors("AllowOrigin")]
     [ApiController]
     [Route("api/[controller]")]
+    [Produces("application/json")]
     public class YouTubeController : ControllerBase
     {
         //Injecting the YouTubeService
         private readonly IYouTubeAPIService _youTubeAPIService;
         private readonly ApplicationDbContext _context;
+        private readonly string _apiKey;
 
-        public YouTubeController(IYouTubeAPIService youTubeAPIService, ApplicationDbContext context)
+        public YouTubeController(IYouTubeAPIService youTubeAPIService, 
+                                 ApplicationDbContext context,
+                                 IConfiguration configuration)
         {
             _youTubeAPIService = youTubeAPIService;
             _context = context;
+            _apiKey = configuration["YouTubeAPI:ApiKey"];
         }
 
 
@@ -152,7 +159,7 @@ namespace unilingo.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
-        }
+            }
 
     }
 
