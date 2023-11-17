@@ -2,15 +2,31 @@
 [Check Live Site](https://agusforna.devher.online/)
 
 ## Comments
-
+- The API is programmed in .Net C#, using SQLite as Database Engine, and Entity Framework Code First.
+- The UI is developed in Angular, and styles in CSS.
+- YouTube API does not allow you to get the comments from a video, so it's not implementated.
+- Some problems with the methods to obtain the audio play, translation and subtitles:
+  - Audio Play: The method is programmed, but for a reason of Cors policy, and some problems with "security"
+                I couldn't make to reproduce the audio. But it is implemented all the methods and YouTube API integration.
+  - Translation to Spanish and Speech: The method is coded, but commented, due to that Google Cloud Translate API, Microsoft Translator API, and IBM API, forced me to pay, and I couldn't get the APIKey to finish the implementation.
+  - The application is hosted in a friend's server, also integrated with Docker.
 
 ## Running and using the solution
 ### Stack required
-- Visual Studio 2022
-- Visual Studio Code
+- Visual Studio 2022 (https://visualstudio.microsoft.com/es/vs/)
+- Visual Studio Code (https://code.visualstudio.com/)
 - Or any IDE of your preference for C# and Angular development.
+- Node.js to use npm package administration (https://nodejs.org/en)
+- Angular CLI (https://angular.io/cli)
   
 ### Running application locally
+- To run the application locally must be in the correct directory of the web project (e.g C:\\Users\UserName\projects\project-name\src\app).
+  Then you have to open in that directory a command prompt. Use the command line or any terminal you want.
+- You need to execute this command: 
+  ng serve
+- Finally, when finishes the deploy, you can open the solution in a Web Browser, use anyone, Firefox, Chrome, etc.
+- Generally the port that is listening the UI is http://localhost:4200.
+
 
 ### Executing application with Docker 🐋
 Instructions on how-to install and run docker containers are taken as explicit, otherwise you cand check [Docker Docs](https://docs.docker.com/)

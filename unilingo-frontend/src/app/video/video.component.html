@@ -52,9 +52,11 @@
 
   <!-- Play button section -->
   <div #playerContainer></div>
-  <div *ngIf="audioURL !== undefined">
+  <div *ngIf="audioURL !== undefined"  class="button-row">
     <button mat-raised-button color="accent" (click)="playAudio()">
       Play Audio
     </button>
+    
   </div>
+
 </div>

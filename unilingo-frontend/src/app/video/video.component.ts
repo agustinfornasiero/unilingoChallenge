@@ -52,24 +52,39 @@ export class VideoFormComponent implements OnInit {
     });
   }
 
+  // playAudio() {
+  //   const audioId = this.getVideoId(this.audioURL);
+  //   const startSeconds = 30; // Start playing from 30 seconds
+  //   const endSeconds = 45; // Stop playing at 45 seconds
+    
+  //   this.player = new YT.Player(this.playerContainer.nativeElement, {
+  //     height: '0',
+  //     width: '0',
+  //     videoId: audioId,
+  //     events: {
+  //       onReady: (event: any) => this.onPlayerReady(event),
+  //     },
+  //     playerVars: {
+  //       start: startSeconds,
+  //       end: endSeconds,
+  //     },
+  //   });
+  // }
   playAudio() {
     const audioId = this.getVideoId(this.audioURL);
     const startSeconds = 30; // Start playing from 30 seconds
     const endSeconds = 45; // Stop playing at 45 seconds
+  
+    const iframeSrc = `https://www.youtube.com/embed/${audioId}?start=${startSeconds}&end=${endSeconds}&autoplay=1`;
     
-    this.player = new YT.Player(this.playerContainer.nativeElement, {
-      height: '0',
-      width: '0',
-      videoId: audioId,
-      events: {
-        onReady: (event: any) => this.onPlayerReady(event),
-      },
-      playerVars: {
-        start: startSeconds,
-        end: endSeconds,
-      },
-    });
+    // You can create an iframe dynamically or use ngIf in the template to conditionally render it.
+    const iframe = document.createElement('iframe');
+    iframe.src = iframeSrc;
+    iframe.width = '0';
+    iframe.height = '0';
+    document.body.appendChild(iframe);
   }
+  
   
   onPlayerReady(event: any) {
     event.target.playVideo();
@@ -81,5 +96,15 @@ export class VideoFormComponent implements OnInit {
     );
     return videoIdMatches ? videoIdMatches[1]! : '';
   }
+
+   speakSpanish() {
+  //   if (speechSynthesis) {
+  //     const speech = new SpeechSynthesisUtterance(this.spanishTranslation);
+  //     speech.lang = 'es';
+  //     speechSynthesis.speak(speech);
+  //   } else {
+  //     console.error('Speech synthesis not supported in this browser.');
+  //   }
+   }
 
 }
