@@ -1,6 +1,21 @@
-## Executing application
+# Unilingo Challenge
+[Check Live Site](https://agusforna.devher.online/)
 
-An environment file is needed to run this application succesfully on Docker. You need t ocreate a .env file as follows:
+## Comments
+
+
+## Running and using the solution
+### Stack required
+- Visual Studio 2022
+- Visual Studio Code
+- Or any IDE of your preference for C# and Angular development.
+  
+### Running application locally
+
+### Executing application with Docker 🐋
+Instructions on how-to install and run docker containers are taken as explicit, otherwise you cand check [Docker Docs](https://docs.docker.com/)
+
+For this project an environment file is needed to run this application succesfully on Docker. You need to create a .env file as follows:
 
 ```
     APP_ENV = ${APPLICATION_ENVIRONMENT}
