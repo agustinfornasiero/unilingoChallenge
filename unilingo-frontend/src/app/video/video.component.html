@@ -1,4 +1,4 @@
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://www.youtube.com; ...">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://www.youtube.com; https://googleads.g.doubleclick.net;">
 <script src="https://www.youtube.com/iframe_api"></script>
 <script src="https://www.youtube.com/iframe_api?enablejsapi=1"></script>
 
@@ -36,16 +36,6 @@
   <div *ngIf="audioURL !== undefined">
     <button mat-raised-button color="accent" (click)="playAudio()">Play Audio</button>
 </div>
-
-  <!-- <div *ngIf="audioURL !== undefined">
-    <button mat-raised-button color="accent" (click)="playAudio()">Play Audio</button>
-</div> -->
-
-<!-- YouTube Player -->
-<!-- <div #playerContainer></div>
-  <div id="player"></div> -->
-
-  
 
 </div>
 

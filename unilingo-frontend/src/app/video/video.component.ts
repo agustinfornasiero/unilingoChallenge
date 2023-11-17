@@ -9,11 +9,14 @@ declare var YT: any; // Declare YT variable
   styleUrls: ['./video.component.css'],
 })
 export class VideoFormComponent implements OnInit {
+  apiKey: string = 'AIzaSyBwU7iggs8HOWej0JfF-GcGthl7kiMhG5A';
+
   videoURL: string = '';
   videoTitle: string = '';
   mostRecentVideo: string = '';
   viewCount: number = 0;
   audioURL: string = 'https://www.youtube.com/watch?v=yourAudioId';
+  spanishTranslation: string = '';
 
   @ViewChild('playerContainer') playerContainer!: ElementRef;
   private player: any; // Variable to hold the YouTube player
@@ -22,9 +25,10 @@ export class VideoFormComponent implements OnInit {
 
   ngOnInit() {
     // Load the YouTube IFrame API
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    document.head.appendChild(tag);
+    
+  const tag = document.createElement('script');
+  tag.src = `https://www.youtube.com/iframe_api?api=${this.apiKey}`;
+  document.head.appendChild(tag);
   }
 
   submitForm() {
@@ -61,7 +65,7 @@ export class VideoFormComponent implements OnInit {
       },
     });
   }
-
+  
   onPlayerReady(event: any) {
     event.target.playVideo();
   }
@@ -72,4 +76,5 @@ export class VideoFormComponent implements OnInit {
     );
     return videoIdMatches ? videoIdMatches[1]! : '';
   }
+
 }
