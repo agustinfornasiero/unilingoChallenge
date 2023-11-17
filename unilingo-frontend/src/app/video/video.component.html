@@ -1,17 +1,30 @@
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://www.youtube.com; https://googleads.g.doubleclick.net;">
+<meta
+  http-equiv="Content-Security-Policy"
+  content="default-src 'self' https://www.youtube.com; https://googleads.g.doubleclick.net;"
+/>
 <script src="https://www.youtube.com/iframe_api"></script>
 <script src="https://www.youtube.com/iframe_api?enablejsapi=1"></script>
 
-<h1 class="title">Unilingo Challenge:</h1>
+<h1 class="title">Unilingo Challenge</h1>
 
 <form (ngSubmit)="submitForm()">
   <mat-form-field appearance="fill">
     <mat-label>Enter YouTube URL</mat-label>
-    <input matInput [(ngModel)]="videoURL" name="videoURL" placeholder="e.g., https://www.youtube.com/watch?v=yourVideoId" required>
+    <input
+      matInput
+      [(ngModel)]="videoURL"
+      name="videoURL"
+      placeholder="e.g., https://www.youtube.com/watch?v=yourVideoId"
+      required
+    />
   </mat-form-field>
 
   <button mat-raised-button color="primary" type="submit">Submit</button>
 </form>
+
+<div class="container">
+  <h3>Most Recent Video: {{ mostRecentVideo }}</h3>
+</div>
 
 <div class="container">
   <div *ngIf="videoTitle !== undefined">
@@ -20,22 +33,28 @@
 
   <div *ngIf="viewCount !== undefined">
     <h3>View Count: {{ viewCount }}</h3>
-    <button mat-raised-button color="primary" type="button" (click)="checkViewCount()">Check</button>
-  </div>
-
-  <div *ngIf="mostRecentVideo !== undefined">
-    <h3>Most Recent Video: {{ mostRecentVideo }}</h3>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      (click)="checkViewCount()"
+    >
+      Check
+    </button>
   </div>
 
   <div>
-    <h3>Most Recent Comment: Disabled by YouTube API </h3>
+    <h3>Most Recent Comment:</h3>
+    <button mat-raised-button color="default" disabled>
+      Disabled by YouTube API
+    </button>
   </div>
 
   <!-- Play button section -->
   <div #playerContainer></div>
   <div *ngIf="audioURL !== undefined">
-    <button mat-raised-button color="accent" (click)="playAudio()">Play Audio</button>
+    <button mat-raised-button color="accent" (click)="playAudio()">
+      Play Audio
+    </button>
+  </div>
 </div>
-
-</div>
-

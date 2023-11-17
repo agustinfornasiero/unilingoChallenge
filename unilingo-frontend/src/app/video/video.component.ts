@@ -29,6 +29,8 @@ export class VideoFormComponent implements OnInit {
   const tag = document.createElement('script');
   tag.src = `https://www.youtube.com/iframe_api?api=${this.apiKey}`;
   document.head.appendChild(tag);
+
+  this.getMostRecent()
   }
 
   submitForm() {
@@ -36,11 +38,14 @@ export class VideoFormComponent implements OnInit {
       this.videoTitle = title;
     });
 
+    this.getMostRecent();
+  }
+
+  getMostRecent(){    
     this.apiService.getMostRecentVideo().subscribe((video) => {
       this.mostRecentVideo = video;
     });
   }
-
   checkViewCount() {
     this.apiService.getVideoInformation(this.videoURL).subscribe((count) => {
       this.viewCount = count;
